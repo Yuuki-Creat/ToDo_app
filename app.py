@@ -21,7 +21,7 @@ def index():
     return render_template('index.html', tasks=tasks)
 
 # タスクの追加
-app.route('/add', methods=['POST'])
+@app.route('/add', methods=['POST'])
 def add():
     content = request.form['content']
     new_task = Task(content=content)
@@ -37,7 +37,7 @@ def delete(task_id):
     db.session.commit()
     return redirect('/')
 
-if __name__ == '__name__':
+if __name__ == '__main__':
     # 初回のみ以下を実行してテーブルを作成
     # with app.app_context():
     #     db.create_all()
