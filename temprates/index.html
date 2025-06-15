@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>ToDo List</title>
+    </head>
+    <body>
+        <h1>My ToDo List</h1>
+        <form action="/add" method="post">
+            <input type="text" name="content" placeholder="新しいタスクを入力" required>
+            <button type="submit">追加</button>
+        </form>
+        <ul>
+            {% for task in tasks %}
+            <li>{{ task.content }} <a href="/delete/{{ task.id }}">[削除]</a></li>
+            {% endfor %}
+        </ul>
+    </body>
+</html>
