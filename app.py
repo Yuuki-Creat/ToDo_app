@@ -41,4 +41,5 @@ if __name__ == '__name__':
     # 初回のみ以下を実行してテーブルを作成
     with app.app_context():
         db.create_all()
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
