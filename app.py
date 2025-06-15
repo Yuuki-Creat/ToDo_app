@@ -11,8 +11,8 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 class Task(db.Model):
-    id = db.column(db.Integer, primary_key=True)
-    content = db.column(db.string(200), nullable=False)
+    id = db.Column(db.Integer, primary_key=True)
+    content = db.Column(db.String(200), nullable=False)
 
 # トップページ（タスクリスト）
 @app.route('/')
