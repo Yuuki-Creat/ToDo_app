@@ -11,14 +11,27 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 class User(db.Model):
+    __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50), unique=True, nullable=False)
-    tasks = db.relationship('Task', backref='user', lazy=True)
+    password = db.Column(db.String(100), nullable=False)
 
-class InventoryItem(db.Model):
+class Todo(db.Model):
+    __tablename__ = 'todos'
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False)
-    quantity = db.Column(db.Integer, nullable=False, default=1)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'))
+    task = db.Column(db.Text, nullable=False)
+    due_date = db.Column(db.Date)
+    is_done = db.Column(db.Boolean, default=False)
+
+class Inventory(db.Model):
+    __tablename__ = 'inventory'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'))
+    item_name = db.Column(db.String(100), nullable=False)
+    quantity = db.Column(db.Integer, default=0)
+    category = db.Column(db.String(50))
+    expire_date = db.Column(db.Date)
 
 class Task(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -49,14 +62,14 @@ def delete(task_id):
 
 @app.route('/inventory')
 def inventory():
-    items = InventoryItem.query.all()
+    items = Inventory.query.all()
     return render_template('inventory.html', items=items)
 
 @app.route('/inventory/add', methods=['POST'])
 def add_inventory():
     name = request.form['name']
     quantity = int(request.form['quantity'])
-    new_item = InventoryItem(name=name, quantity=quantity)
+    new_item = Inventory(name=name, quantity=quantity)
     db.session.add(new_item)
     db.session.commit()
     return redirect('/inventory')
