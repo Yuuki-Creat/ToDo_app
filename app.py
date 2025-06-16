@@ -33,30 +33,26 @@ class Inventory(db.Model):
     category = db.Column(db.String(50))
     expire_date = db.Column(db.Date)
 
-class Task(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    content = db.Column(db.String(200), nullable=False)
-
 # トップページ（タスクリスト）
 @app.route('/')
 def index():
-    tasks = Task.query.all()
+    tasks = Todo.query.all()
     return render_template('index.html', tasks=tasks)
 
 # タスクの追加
 @app.route('/add', methods=['POST'])
 def add():
     content = request.form['content']
-    new_task = Task(content=content)
-    db.session.add(new_task)
+    new_todo = Todo(content=content)
+    db.session.add(new_todo)
     db.session.commit()
     return redirect('/')
 
 # タスクの削除
-@app.route('/delete/<int:task_id>')
-def delete(task_id):
-    task = Task.query.get(task_id)
-    db.session.delete(task)
+@app.route('/delete/<int:todo_id>')
+def delete(todo_id):
+    todo = Todo.query.get(todo_id)
+    db.session.delete(todo)
     db.session.commit()
     return redirect('/')
 
@@ -69,7 +65,7 @@ def inventory():
 def add_inventory():
     name = request.form['name']
     quantity = int(request.form['quantity'])
-    new_item = Inventory(name=name, quantity=quantity)
+    new_item = Inventory(item_name=name, quantity=quantity)
     db.session.add(new_item)
     db.session.commit()
     return redirect('/inventory')
@@ -78,9 +74,10 @@ def add_inventory():
 def users():
     if request.method == 'POST':
         username = request.form['username']
+        password = request.form['password']
         if User.query.count() >= 2:
             return "ユーザーは2名までです"
-        new_user = User(username=username)
+        new_user = User(username=username, password=password)
         db.session.add(new_user)
         db.session.commit()
         return redirect('/users')

@@ -10,9 +10,10 @@
             <button type="submit">追加</button>
         </form>
         <ul>
-            {% for task in tasks %}
-            <li>{{ task.content }} <a href="/delete/{{ task.id }}">[削除]</a></li>
+            {% for todo in todos %}
+            <li>{{ todo.task }} <a href="/delete/{{ todo.id }}">[削除]</a></li>
             {% endfor %}
         </ul>
+        <a href="/inventory">在庫管理</a> | <a href="/users">ユーザー管理</a>
     </body>
 </html>

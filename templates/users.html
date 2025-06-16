@@ -1,11 +1,20 @@
-<h1>ユーザー管理</h1>
-<form method="post">
-    <input type="text" name="username" placeholder="ユーザー名" required>
-    <button type="submit">追加</button>
-</form>
-<ul>
-    {% for user in users %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ユーザー管理</title>
+</head>
+<body>
+    <h1>ユーザー管理</h1>
+    <form method="post">
+        <input type="text" name="username" placeholder="ユーザー名" required>
+        <input type="password" name="password" placeholder="パスワード" required>
+        <button type="submit">追加</button>
+    </form>
+    <ul>
+        {% for user in users %}
         <li>{{ user.username }}</li>
-    {% endfor %}
-</ul>
-<a href="/">ToDoへ戻る</a>
+        {% endfor %}
+    </ul>
+    <a href="/">ToDoへ戻る</a>
+</body>
+</html>
