@@ -73,20 +73,29 @@ def add_inventory():
 @app.route('/users', methods=['GET', 'POST'])
 def users():
     if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
+        username = request.form.get('username')
+        password = request.form.get('password')
+
+        if not username or not password:
+            return "ユーザー名とパスワードは必須です", 400
+
         if User.query.count() >= 2:
-            return "ユーザーは2名までです"
+            return "ユーザーは2名までです", 400
+
+        if User.query.filter_by(username=username).first():
+            return "そのユーザー名は既に使われています", 400
+
         new_user = User(username=username, password=password)
         db.session.add(new_user)
         db.session.commit()
         return redirect('/users')
+
     users = User.query.all()
     return render_template('users.html', users=users)
 
 if __name__ == '__main__':
     # 初回のみ以下を実行してテーブルを作成
-    with app.app_context():
-        db.create_all()
+    # with app.app_context():
+    #     db.create_all()
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
