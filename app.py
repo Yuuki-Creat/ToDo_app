@@ -63,11 +63,19 @@ def inventory():
 
 @app.route('/inventory/add', methods=['POST'])
 def add_inventory():
-    name = request.form['name']
+    item_name = request.form['name']
     quantity = int(request.form['quantity'])
-    new_item = Inventory(item_name=name, quantity=quantity)
+    new_item = Inventory(item_name=item_name, quantity=quantity)
     db.session.add(new_item)
     db.session.commit()
+    return redirect('/inventory')
+
+@app.route('/delete/<int:item_id>')
+def delete_inventory(item_id):
+    item = Inventory.query.get(item_id)
+    if item:
+        db.session.delete(item)
+        db.session.commit()
     return redirect('/inventory')
 
 @app.route('/users', methods=['GET', 'POST'])

@@ -12,7 +12,9 @@
     </form>
     <ul>
         {% for item in items %}
-        <li>{{ item.item_name }}: {{ item.quantity }}</li>
+            <li>{{ item.item_name }}: {{ item.quantity }}
+                <a href="/inventory/delete/{{ item.id }}">削除</a>
+            </li>
         {% endfor %}
     </ul>
     <a href="/">ToDoへ戻る</a>
