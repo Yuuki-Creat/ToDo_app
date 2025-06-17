@@ -36,14 +36,14 @@ class Inventory(db.Model):
 # トップページ（タスクリスト）
 @app.route('/')
 def index():
-    tasks = Todo.query.all()
-    return render_template('index.html', tasks=tasks)
+    todos = Todo.query.all()
+    return render_template('index.html', todos=todos)
 
 # タスクの追加
 @app.route('/add', methods=['POST'])
 def add():
-    content = request.form['content']
-    new_todo = Todo(content=content)
+    task_text = request.form['task']
+    new_todo = Todo(task=task_text)
     db.session.add(new_todo)
     db.session.commit()
     return redirect('/')
@@ -70,7 +70,7 @@ def add_inventory():
     db.session.commit()
     return redirect('/inventory')
 
-@app.route('/delete/<int:item_id>')
+@app.route('/inventory/delete/<int:item_id>')
 def delete_inventory(item_id):
     item = Inventory.query.get(item_id)
     if item:
