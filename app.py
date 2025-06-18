@@ -81,8 +81,8 @@ def delete_inventory(item_id):
 @app.route('/users', methods=['GET', 'POST'])
 def users():
     if request.method == 'POST':
-        username = request.form.get('username')
-        password = request.form.get('password')
+        username = request.form['username']
+        password = request.form['password']
 
         if not username or not password:
             return "ユーザー名とパスワードは必須です", 400
