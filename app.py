@@ -72,11 +72,14 @@ def inventory():
 def add_inventory():
     if 'user_id' not in session:
         return redirect('/login')
+    category = request.form['category']
     item_name = request.form['name']
     quantity = int(request.form['quantity'])
     expire_date = request.form.get('expire_date')
     expire_date = datetime.strptime(expire_date, '%Y-%m-%d') if expire_date else None
-    new_item = Inventory(item_name=item_name, quantity=quantity, expire_date=expire_date, user_id=session['user_id'])
+    new_item = Inventory(
+        category=category, item_name=item_name, quantity=quantity, expire_date=expire_date, user_id=session['user_id']
+    )
     db.session.add(new_item)
     db.session.commit()
     return redirect('/inventory')
