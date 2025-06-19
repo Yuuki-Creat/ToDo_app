@@ -75,7 +75,7 @@ def add_inventory():
     item_name = request.form['name']
     quantity = int(request.form['quantity'])
     expire_date = request.form.get('expire_date')
-    expire_date = datetime.strptime(expire_date, 'Y%-m%-%d') if expire_date else None
+    expire_date = datetime.strptime(expire_date, '%Y-%m-%d') if expire_date else None
     new_item = Inventory(item_name=item_name, quantity=quantity, expire_date=expire_date, user_id=session['user_id'])
     db.session.add(new_item)
     db.session.commit()
