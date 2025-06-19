@@ -14,7 +14,7 @@
     </form>
     <ul>
         {% for item in items %}
-            <li>{{ item.item_name }}: {{ item.quantity }}
+            <li>{{item.category }}: {{ item.item_name }}: {{ item.quantity }}: {{ item.expire_date }}
                 <a href="/inventory/delete/{{ item.id }}">削除</a>
             </li>
         {% endfor %}
