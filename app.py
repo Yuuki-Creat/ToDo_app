@@ -5,7 +5,8 @@ from flask_sqlalchemy import SQLAlchemy
 
 
 app = Flask(__name__)
-
+app = Flask(__name__)
+app.secret_key = os.environ.get('SECRET_KEY', 'default_secret_key')  # 追加
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
