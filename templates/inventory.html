@@ -6,8 +6,10 @@
 <body>
     <h1>在庫管理</h1>
     <form method="post" action="/inventory/add">
+        <input type="text" name="category" placeholder="種類" required>
         <input type="text" name="name" placeholder="商品名" required>
         <input type="number" name="quantity" placeholder="数量" required>
+        <input type="date" name="expire_date" placeholder="賞味期限" required>
         <button type="submit">追加</button>
     </form>
     <ul>
