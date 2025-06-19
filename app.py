@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 import os
 from flask import Flask, redirect, render_template, request, session
 from flask_sqlalchemy import SQLAlchemy
@@ -6,7 +6,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app = Flask(__name__)
-app.secret_key = os.environ.get('SECRET_KEY', 'default_secret_key')
+app.secret_key = os.environ.get('SECRET_KEY', 'DEFAULT_SECRET_KEY')
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
