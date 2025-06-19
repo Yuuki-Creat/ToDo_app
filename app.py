@@ -108,7 +108,7 @@ def users():
     users = User.query.all()
     return render_template('users.html', users=users)
 
-@app.route('/login', mehods=['GET', 'POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         username = request.form['username']
