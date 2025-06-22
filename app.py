@@ -98,7 +98,7 @@ def add_inventory():
     db.session.commit()
     return redirect('/inventory')
 
-@app.route('/inventory/update/<int:item_id>', method=['POST'])
+@app.route('/inventory/update/<int:item_id>', methods=['POST'])
 @login_required
 def update_inventory(item_id):
     item = Inventory.query.get(item_id)
