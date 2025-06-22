@@ -22,14 +22,26 @@
         <input type="date" name="expire_date" placeholder="賞味期限" required>
         <button type="submit" onclick="return confirmAdd()">追加</button>
     </form>
-    <ul>
+    <table border="1">
+        <tr>
+            <th>No</th>
+            <th>種類</th>
+            <th>商品名</th>
+            <th>数量</th>
+            <th>賞味期限</th>
+            <th>操作</th>
+        </tr>
         {% for item in items %}
-            <li>{{item.category }}: {{ item.item_name }}: {{ item.quantity }}: 
-                {{ item.expire_date.strftime('%Y-%m-%d') }}
-                <a href="#" onclick="confirmDelete('{{ item.id }}')">削除</a>
-            </li>
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ item.category }}</td>
+            <td>{{ item.item_name }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.expire_date.strftime('%Y-%m-%d') }}</td>
+            <td><a href="#" onclick="confirmDelete('{{ item.id }}')">削除</a></td>
+        </tr>
         {% endfor %}
-    </ul>
+    </table>
     <a href="/">ToDoへ戻る</a>
 </body>
 </html>
