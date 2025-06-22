@@ -10,11 +10,18 @@
         <input type="password" name="password" placeholder="パスワード" required>
         <button type="submit">追加</button>
     </form>
-    <ul>
+    <table border="1">
+        <tr>
+            <th>No</th>
+            <th>ユーザー名</th>
+        </tr>
         {% for user in users %}
-            <li>{{ user.username }}</li>
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ user.username }}</td>
+        </tr>
         {% endfor %}
-    </ul>
+    </table>
     <a href="/">ToDoへ戻る</a>
 </body>
 </html>
