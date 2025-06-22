@@ -47,7 +47,7 @@
                         <button type="submit" class="btn btn-primary btn-sm">更新</button>
                     </form>
                 </td>
-                <td>{{ item.expire_date.strftime(%Y-%m-%d) }}</td>
+                <!-- <td>{{ item.expire_date.strftime(%Y-%m-%d) }}</td> -->
                 <td><a href="#" class="btn btn-danger btn-sm" onclick="confirmDelete('{{ item.id }}')">削除</a></td>
             </tr>
             {% endfor %}
