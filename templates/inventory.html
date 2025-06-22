@@ -24,10 +24,10 @@
     </form>
     <ul>
         {% for item in items %}
-            <li>{{item.category }}: {{ item.item_name }}: {{ item.quantity }}: 
-                {% if item.expire_date %} {{ item.expire_date.strftime('%Y-%m-%d') }} {{% endif %}}
-                <a href="#" onclick="confirmDelete('{{ item.id }}')">[削除]</a>
-            </li>
+        <li>{{ item.item_name }}: {{ item.quantity }}個
+            {% if item.expire_date %} (賞味期限: {{ item.expire_date.strftime('%Y-%m-%d') }}){% endif %}
+            <a href="#" onclick="confirmDelete('{{ item.id }}')">[削除]</a>
+        </li>
         {% endfor %}
     </ul>
     <a href="/">ToDoへ戻る</a>
