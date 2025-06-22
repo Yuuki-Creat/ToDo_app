@@ -98,6 +98,19 @@ def add_inventory():
     db.session.commit()
     return redirect('/inventory')
 
+@app.route('/inventory/update/<int:item_id>', method=['POST'])
+@login_required
+def update_inventory(item_id):
+    item = Inventory.query.get(item_id)
+    if item and item.user_id == session['user_id']:
+        try:
+            new_quantity = int(request.form['quantity'])
+            item.quantity = new_quantity
+            db.session.commit()
+        except ValueError:
+            pass # 数値でない場合は無視するか、メッセージ追加
+    return redirect('/inventory')
+
 @app.route('/inventory/delete/<int:item_id>')
 @login_required
 def delete_inventory(item_id):
