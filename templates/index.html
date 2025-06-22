@@ -2,18 +2,28 @@
 <html>
     <head>
         <title>ToDo List</title>
+        <script>
+            function confirmDelete(taskId) {
+                if (confirm("このタスクを削除してもよろしいですか？")) {
+                    window.location.href = "/delete/" + taskId;
+                }
+            }
+            function confirmAdd() {
+                return confirm("このタスクを追加しますか？");
+            }
+        </script>
     </head>
     <body>
         <h1>My ToDo List</h1>
-        <form action="/add" method="post">
+        <form action="/add" method="post" onsubmit="return confirmAdd()">
             <input type="text" name="task" placeholder="新しいタスクを入力" required>
             <button type="submit">追加</button>
         </form>
         <ul>
             {% for todo in todos %}
-                <li>{{ todo.task }} <a href="/delete/{{ todo.id }}">[削除]</a></li>
+                <li>{{ todo.task }} <a href="#" onclick="confirmDelete('{{ todo.id }}')">[削除]</a></li>
             {% endfor %}
         </ul>
-        <a href="/inventory">在庫管理</a> | <a href="/users">ユーザー管理</a>
+        <a href="/inventory">在庫管理</a> / <a href="/users">ユーザー管理</a> / <a href="/logout">ログアウト</a>
     </body>
 </html>
