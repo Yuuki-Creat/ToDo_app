@@ -45,8 +45,8 @@ def index():
 # タスクの追加
 @app.route('/add', methods=['POST'])
 def add():
-    # if 'user_id' not in session:
-    #     return redirect('/login')
+    if 'user_id' not in session:
+        return redirect('/login')
     task_text = request.form['task']
     new_todo = Todo(task=task_text, user_id=session['user_id'])
     db.session.add(new_todo)
@@ -56,8 +56,8 @@ def add():
 # タスクの削除
 @app.route('/delete/<int:todo_id>')
 def delete(todo_id):
-    # if 'user_id' not in session:
-    #     return redirect('/login')
+    if 'user_id' not in session:
+        return redirect('/login')
     todo = Todo.query.get(todo_id)
     if todo:
         db.session.delete(todo)
@@ -71,8 +71,8 @@ def inventory():
 
 @app.route('/inventory/add', methods=['POST'])
 def add_inventory():
-    # if 'user_id' not in session:
-    #     return redirect('/login')
+    if 'user_id' not in session:
+        return redirect('/login')
     category = request.form['category']
     item_name = request.form['name']
     quantity = int(request.form['quantity'])
@@ -87,8 +87,8 @@ def add_inventory():
 
 @app.route('/inventory/delete/<int:item_id>')
 def delete_inventory(item_id):
-    # if 'user_id' not in session:
-    #     return redirect('/login')
+    if 'user_id' not in session:
+        return redirect('/login')
     item = Inventory.query.get(item_id)
     if item:
         db.session.delete(item)
