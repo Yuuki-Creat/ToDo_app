@@ -40,7 +40,7 @@ def login_required(f):
     def decorated_function(*args, **kwargs):
         if 'user_id' not in session:
             return redirect('/login')
-        return f(*args, kwargs)
+        return f(*args, **kwargs)
     return decorated_function
 
 # トップページ（タスクリスト）
