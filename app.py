@@ -77,6 +77,7 @@ def delete(todo_id):
     return redirect('/')
 
 @app.route('/inventory')
+@login_required
 def inventory():
     items = Inventory.query.all()
     return render_template('inventory.html', items=items)
