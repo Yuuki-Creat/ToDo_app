@@ -20,13 +20,14 @@
         <input type="text" name="name" placeholder="商品名" required>
         <input type="number" name="quantity" placeholder="数量" required>
         <input type="date" name="expire_date" placeholder="賞味期限" required>
-        <button type="submit">追加</button>
+        <button type="submit" onclick="return confirmAdd()">追加</button>
     </form>
     <ul>
         {% for item in items %}
             <li>{{item.category }}: {{ item.item_name }}: {{ item.quantity }}: 
                 {{ item.expire_date.strftime('%Y-%m-%d') }}
-                <a href="/inventory/delete/{{ item.id }}">削除</a>
+                <a href="#" onclick="confirmDelete('{{ item.id }}')">削除</a>
+                <!-- <a href="/inventory/delete/{{ item.id }}">削除</a> -->
             </li>
         {% endfor %}
     </ul>
