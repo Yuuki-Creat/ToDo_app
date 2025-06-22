@@ -1,4 +1,5 @@
 from datetime import datetime
+from functools import wraps
 import os
 from flask import Flask, redirect, render_template, request, session
 from flask_sqlalchemy import SQLAlchemy
@@ -34,19 +35,29 @@ class Inventory(db.Model):
     category = db.Column(db.String(50))
     expire_date = db.Column(db.Date)
 
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'user_id' not in session:
+            return redirect('/login')
+        return f(*args, kwargs)
+    return decorated_function
+
 # トップページ（タスクリスト）
 @app.route('/')
+@login_required
 def index():
-    if 'user_id' not in session:
-        return redirect('/login')
+    # if 'user_id' not in session:
+    #     return redirect('/login')
     todos = Todo.query.filter_by(user_id=session['user_id']).all()
     return render_template('index.html', todos=todos)
 
 # タスクの追加
 @app.route('/add', methods=['POST'])
+@login_required
 def add():
-    if 'user_id' not in session:
-        return redirect('/login')
+    # if 'user_id' not in session:
+    #     return redirect('/login')
     task_text = request.form['task']
     new_todo = Todo(task=task_text, user_id=session['user_id'])
     db.session.add(new_todo)
@@ -55,9 +66,10 @@ def add():
 
 # タスクの削除
 @app.route('/delete/<int:todo_id>')
+@login_required
 def delete(todo_id):
-    if 'user_id' not in session:
-        return redirect('/login')
+    # if 'user_id' not in session:
+    #     return redirect('/login')
     todo = Todo.query.get(todo_id)
     if todo:
         db.session.delete(todo)
@@ -70,9 +82,10 @@ def inventory():
     return render_template('inventory.html', items=items)
 
 @app.route('/inventory/add', methods=['POST'])
+@login_required
 def add_inventory():
-    if 'user_id' not in session:
-        return redirect('/login')
+    # if 'user_id' not in session:
+    #     return redirect('/login')
     category = request.form['category']
     item_name = request.form['name']
     quantity = int(request.form['quantity'])
@@ -86,9 +99,10 @@ def add_inventory():
     return redirect('/inventory')
 
 @app.route('/inventory/delete/<int:item_id>')
+@login_required
 def delete_inventory(item_id):
-    if 'user_id' not in session:
-        return redirect('/login')
+    # if 'user_id' not in session:
+    #     return redirect('/login')
     item = Inventory.query.get(item_id)
     if item:
         db.session.delete(item)
