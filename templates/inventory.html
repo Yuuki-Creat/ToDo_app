@@ -41,17 +41,14 @@
                 <td>{{ loop.index }}</td>
                 <td>{{ item.category }}</td>
                 <td>{{ item.item_name }}</td>
-                <td style="width: 80px;">
-                    <form action="/inventory/update/{{ item.id }}" method="post" class="d-flex aline-items-center gap-1">
-                        <input type="number" name="quantity" class="form-control form-control-sm me-2" value="{{ item.quantity }}" min="0" style="width: 70px;">
-                </td>
-                    <td>
-                        {{ item.expire_date.strftime('%Y-%m-%d') if item.expire_date else '' }}
-                    </td>
+                <td>
+                    <form action="/inventory/update/{{ item.id }}" method="post" class="d-flex gap-2">
+                        <input type="number" name="quantity" value="{{ item.quantity }}" min="0"
+                               class="form-control form-control-sm me-2" style="width: 70px;">
                         <button type="submit" class="btn btn-primary btn-sm">更新</button>
+                        <a href="#" class="btn btn-danger btn-sm" onclick="confirmDelete('{{ item.id }}')">削除</a>
                     </form>
-                    <a href="#" class="btn btn-danger btn-sm" onclick="confirmDelete('{{ item.id }}')">削除</a>
-                </td>
+                </td>                
             </tr>
             {% endfor %}
         </tbody>
