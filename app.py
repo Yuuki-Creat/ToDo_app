@@ -107,7 +107,7 @@ def update_inventory(item_id):
             quantity = request.form.get('quantity')
             expire_date = request.form.get('expire_date')
 
-            if quantity is not None:
+            if quantity is not None and quantity != "":
                 item.quantity = int(quantity)
             if expire_date:
                 item.expire_date = datetime.strptime(expire_date, '%Y-%m-%d')

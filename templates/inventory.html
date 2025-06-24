@@ -37,8 +37,8 @@
         </thead>
         <tbody>
             {% for item in items %}
-            <form action="/inventory/update/{{ item.id }}" method="post">
-                <tr>
+            <tr>
+                <form action="/inventory/update/{{ item.id }}" method="post">
                     <td>{{ loop.index }}</td>
                     <td>{{ item.category }}</td>
                     <td>{{ item.item_name }}</td>
@@ -55,8 +55,8 @@
                         <button type="submit" class="btn btn-primary btn-sm">更新</button>
                         <a href="#" class="btn btn-danger btn-sm" onclick="confirmDelete('{{ item.id }}')">削除</a>
                     </td>
-                </tr>
-            </form>            
+                </form>
+            </tr>
             {% endfor %}
         </tbody>
     </table>
