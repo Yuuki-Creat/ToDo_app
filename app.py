@@ -104,11 +104,15 @@ def update_inventory(item_id):
     item = Inventory.query.get(item_id)
     if item and item.user_id == session['user_id']:
         try:
-            quantity = request.form['quantity']
-            expire_data_str = request.form['expire_date']
+            quantity = request.form.get('quantity')
+            expire_date_str = request.form.get('expire_date')
 
-            item.quantity = int(quantity) if quantity else item.quantity
-            item.expire_date = datetime.strptime(expire_data_str, '%Y-%m-%d') if expire_data_str else None
+            if quantity is not None:
+                item.quantity = int(quantity)
+            if expire_date_str:
+                item.expire_date = datetime.strptime(expire_date_str, '%Y-%m-%d')
+            else:
+                item.expire_date = None
             db.session.commit()
         except ValueError:
             pass # 数値でない場合は無視するか、メッセージ追加
