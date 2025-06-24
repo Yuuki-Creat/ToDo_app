@@ -1,7 +1,7 @@
 from datetime import datetime
 from functools import wraps
 import os
-from flask import Flask, redirect, render_template, request, session
+from flask import Flask, flash, redirect, render_template, request, session
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -102,7 +102,8 @@ def add_inventory():
 @login_required
 def update_inventory(item_id):
     item = Inventory.query.get(item_id)
-    if item and item.user_id == session['user_id']:
+    # if item and item.user_id == session['user_id']:
+    if item:
         try:
             quantity = request.form.get('quantity')
             expire_date = request.form.get('expire_date')
@@ -114,8 +115,9 @@ def update_inventory(item_id):
             else:
                 item.expire_date = None
             db.session.commit()
+            flash("Inventory item updated successfully!", "success")
         except ValueError:
-            pass # 数値でない場合は無視するか、メッセージ追加
+            flash("Invalid quantity or date format. Please check your input.", "danger")
     return redirect('/inventory')
 
 @app.route('/inventory/delete/<int:item_id>')
