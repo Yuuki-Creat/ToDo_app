@@ -45,8 +45,9 @@
                     <td style="width: 80px;">
                         <input type="number" name="quantity" class="form-control form-control-sm me-2" value="{{ item.quantity }}" min="0" style="width: 70px;">
                     </td>
-                    <td>
-                        {{ item.expire_date.strftime('%Y-%m-%d') if item.expire_date else '' }}
+                    <td style="width: 100px;">
+                        <input type="date" name="expire_date" class="form-control form-control-sm"
+                            value="{{ item.expire_date.strftime('%Y-%m-%d') if item.expire_date else '' }}">
                     </td>
                     <td class="d-flex gap-1">
                         <button type="submit" class="btn btn-primary btn-sm">更新</button>
