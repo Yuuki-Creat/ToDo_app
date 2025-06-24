@@ -105,12 +105,12 @@ def update_inventory(item_id):
     if item and item.user_id == session['user_id']:
         try:
             quantity = request.form.get('quantity')
-            expire_date_str = request.form.get('expire_date')
+            expire_date = request.form.get('expire_date')
 
             if quantity is not None:
                 item.quantity = int(quantity)
-            if expire_date_str:
-                item.expire_date = datetime.strptime(expire_date_str, '%Y-%m-%d')
+            if expire_date:
+                item.expire_date = datetime.strptime(expire_date, '%Y-%m-%d')
             else:
                 item.expire_date = None
             db.session.commit()
