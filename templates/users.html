@@ -5,7 +5,7 @@
 <form method="post" class="row g-2 mb-4">
     <div class="col-md-5"><input type="text" name="username" class="form-control" placeholder="ユーザー名" required></div>
     <div class="col-md-5"><input type="password" name="password" class="form-control" placeholder="パスワード" required></div>
-    <div class="col-md-2"><button type="submit" class="btn btn-primary w-100" >追加</button></div>
+    <div class="col-md-2"><button type="submit" class="btn btn-primary w-100" onclick="return confirm('追加しますか？');">追加</button></div>
 </form>
 <table class="table table-bordered">
     <thead>

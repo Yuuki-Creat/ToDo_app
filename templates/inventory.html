@@ -37,7 +37,7 @@
                             style="width: 130px;">
                 </td>
                 <td class="d-flex gap-1">
-                    <button type="submit" class="btn btn-primary btn-sm">更新</button>
+                    <button type="submit" class="btn btn-primary btn-sm" onclick="return confirm('更新しますか？');">更新</button>
                     <a href="#" class="btn btn-danger btn-sm" onclick="if(confirm('削除しますか？')) location.href='/inventory/delete/{{ item.id }}';">削除</a>
                 </td>
             </form>
@@ -45,4 +45,9 @@
         {% endfor %}
     </tbody>
 </table>
+<script>
+    function confirmAdd() {
+        return confirm("追加しますか？");
+    }
+</script>
 {% endblock %}
